@@ -1,5 +1,8 @@
 package com.bfp.tutordemo.controller;
 
+import com.bfp.tutordemo.entity.dto.StudentDTO;
+import com.bfp.tutordemo.response.HttpResponse;
+import jakarta.validation.*;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,13 +21,13 @@ public class StudentController {
     }
 
     @PostMapping
-    public String createStudent(){
-        return "create student";
+    public HttpResponse createStudent(@Valid @RequestBody StudentDTO student){
+        return HttpResponse.builder().message(student.toString()).build();
     }
 
     @PutMapping("{id}")
-    public String updateStudent(@PathVariable("id")Long id){
-        return "update student";
+    public HttpResponse updateStudent(@PathVariable("id")Long id, @Valid @RequestBody StudentDTO student){
+        return HttpResponse.builder().message(student.toString()).build();
     }
 
     @DeleteMapping("{id}")
