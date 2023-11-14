@@ -1,5 +1,6 @@
 package com.bfp.tutordemo.response;
 
+import com.bfp.tutordemo.response.exception.ValueExistsInDatabase;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -33,6 +34,17 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.BAD_REQUEST)
                 .message("Validation failed")
                 .data(validationErrors)
+                .build();
+    }
+
+    @ExceptionHandler(ValueExistsInDatabase.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public HttpResponse handleExistingValuesInDatabase(ValueExistsInDatabase ex) {
+        return HttpResponse.builder()
+                .timestamp(now().toString())
+                .statusCode(400)
+                .status(HttpStatus.BAD_REQUEST)
+                .message(ex.getMessage())
                 .build();
     }
 
