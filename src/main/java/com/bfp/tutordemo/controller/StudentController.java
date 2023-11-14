@@ -23,7 +23,7 @@ public class StudentController {
         return HttpResponse
                 .builder()
                 .timestamp(now().toString())
-                .data(of("students",studentService.getStudents()))
+                .data(of("students",studentService.findAll()))
                 .message("Students retrieved!")
                 .status(HttpStatus.OK)
                 .statusCode(HttpStatus.OK.value())
@@ -34,7 +34,7 @@ public class StudentController {
         return HttpResponse
                 .builder()
                 .timestamp(now().toString())
-                .data(of("student",studentService.getStudent(id)))
+                .data(of("student",studentService.findById(id)))
                 .message("Student retrieved!")
                 .status(HttpStatus.OK)
                 .statusCode(HttpStatus.OK.value())
@@ -46,7 +46,7 @@ public class StudentController {
         return HttpResponse
                 .builder()
                 .timestamp(now().toString())
-                .data(of("student",studentService.saveStudent(student)))
+                .data(of("student",studentService.save(student)))
                 .message("Student created!")
                 .status(HttpStatus.CREATED)
                 .statusCode(HttpStatus.CREATED.value())
@@ -54,11 +54,11 @@ public class StudentController {
     }
 
     @PutMapping("{id}")
-    public HttpResponse updateStudent(@PathVariable("id")Long id, @Valid @RequestBody StudentDTO student){
+    public HttpResponse updateStudent(@PathVariable("id")Long id, @Valid @RequestBody StudentDTO studentDTO){
         return HttpResponse
                 .builder()
                 .timestamp(now().toString())
-                .data(of("student",studentService.updateStudent(id)))
+                .data(of("student",studentService.update(id,studentDTO)))
                 .message("Student updated!")
                 .status(HttpStatus.OK)
                 .statusCode(HttpStatus.OK.value())
@@ -67,7 +67,7 @@ public class StudentController {
 
     @DeleteMapping("{id}")
     public HttpResponse deleteStudentById(@PathVariable("id")Long id){
-        studentService.deleteStudent(id);
+        studentService.delete(id);
         return HttpResponse
                 .builder()
                 .timestamp(now().toString())

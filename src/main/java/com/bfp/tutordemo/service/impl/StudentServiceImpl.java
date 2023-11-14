@@ -32,4 +32,9 @@ public class StudentServiceImpl implements BaseEntityService<Student,StudentDTO>
     public void delete(Long id) {
         System.out.println("deleted");
     }
+
+    @Override
+    public Student update(Long id, StudentDTO studentDTO) {
+        return s;
+    }
 }

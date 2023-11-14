@@ -12,4 +12,6 @@ public interface BaseEntityService <T extends BaseEntity, D> {
 
     void delete(Long id);
 
+    T update(Long id, D entity);
+
 }
