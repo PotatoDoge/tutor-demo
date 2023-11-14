@@ -46,7 +46,7 @@ public class StudentController {
         return HttpResponse
                 .builder()
                 .timestamp(now().toString())
-                .data(of("student",studentService.saveStudent()))
+                .data(of("student",studentService.saveStudent(student)))
                 .message("Student created!")
                 .status(HttpStatus.CREATED)
                 .statusCode(HttpStatus.CREATED.value())
