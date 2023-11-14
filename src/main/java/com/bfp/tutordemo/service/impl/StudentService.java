@@ -44,7 +44,6 @@ public class StudentService implements BaseEntityService<Student,StudentDTO> {
     @Override
     public Student update(Long id, StudentDTO studentDTO) {
         Student student = new Student(id,studentDTO.getFirstName(), studentDTO.getLastName(), studentDTO.getEmail());
-        studentRepository.save(student);
-        return student;
+        return studentRepository.save(student);
     }
 }
