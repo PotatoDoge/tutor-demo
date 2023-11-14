@@ -10,4 +10,11 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 public class Tutor extends BaseEntity{
+
+    public Tutor(Long id, String firstName, String lastName, String email ){
+        this.setId(id);
+        this.setFirstName(firstName);
+        this.setLastName(lastName);
+        this.setEmail(email);
+    }
 }
