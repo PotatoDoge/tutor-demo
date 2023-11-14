@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Service
-public class StudentServiceImpl implements BaseEntityService<Student,StudentDTO> {
+public class StudentService implements BaseEntityService<Student,StudentDTO> {
 
     private final Student s = new Student(1L,"bastian","prado","mail@mail.com");
 

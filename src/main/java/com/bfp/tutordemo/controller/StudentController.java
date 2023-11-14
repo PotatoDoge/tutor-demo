@@ -2,7 +2,7 @@ package com.bfp.tutordemo.controller;
 
 import com.bfp.tutordemo.entity.dto.StudentDTO;
 import com.bfp.tutordemo.response.HttpResponse;
-import com.bfp.tutordemo.service.impl.StudentServiceImpl;
+import com.bfp.tutordemo.service.impl.StudentService;
 import jakarta.validation.*;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,7 +16,7 @@ import static java.util.Map.of;
 @AllArgsConstructor
 public class StudentController {
 
-    private final StudentServiceImpl studentService;
+    private final StudentService studentService;
 
     @GetMapping
     public HttpResponse getStudents(){
