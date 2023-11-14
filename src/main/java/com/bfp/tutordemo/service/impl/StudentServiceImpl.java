@@ -1,33 +1,35 @@
 package com.bfp.tutordemo.service.impl;
 
 import com.bfp.tutordemo.entity.Student;
-import com.bfp.tutordemo.service.StudentService;
+import com.bfp.tutordemo.entity.dto.StudentDTO;
+import com.bfp.tutordemo.service.BaseEntityService;
+import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
-public class StudentServiceImpl implements StudentService {
+@Service
+public class StudentServiceImpl implements BaseEntityService<Student,StudentDTO> {
+
+    private final Student s = new Student(1L,"bastian","prado","mail@mail.com");
+
     @Override
-    public List<Student> getStudents() {
-        return null;
+    public Student save(StudentDTO studentDTO) {
+        return s;
     }
 
     @Override
-    public Student getStudent(Long id) {
-        return null;
+    public Student findById(Long id) {
+        return s;
     }
 
     @Override
-    public Student saveStudent() {
-        return null;
+    public List<Student> findAll() {
+        return Collections.singletonList(s);
     }
 
     @Override
-    public Student updateStudent(Long id) {
-        return null;
-    }
-
-    @Override
-    public Student deleteStudent(Long id) {
-        return null;
+    public void delete(Long id) {
+        System.out.println("deleted");
     }
 }
