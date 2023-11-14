@@ -5,6 +5,5 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class StudentDTO extends BaseEntityDTO{
-
+public class TutorDTO extends BaseEntityDTO{
 }

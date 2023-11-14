@@ -8,5 +8,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface StudentRepository extends BaseEntityRepository<Student, StudentDTO> {
-    boolean existsByEmail(String email);
 }
