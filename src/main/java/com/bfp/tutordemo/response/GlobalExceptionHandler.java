@@ -38,12 +38,12 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ValueExistsInDatabase.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.OK)
     public HttpResponse handleExistingValuesInDatabase(ValueExistsInDatabase ex) {
         return HttpResponse.builder()
                 .timestamp(now().toString())
-                .statusCode(400)
-                .status(HttpStatus.BAD_REQUEST)
+                .statusCode(200)
+                .status(HttpStatus.OK)
                 .message(ex.getMessage())
                 .build();
     }
