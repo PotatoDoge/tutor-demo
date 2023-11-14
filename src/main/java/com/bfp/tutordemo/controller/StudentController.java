@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import static java.time.LocalTime.now;
 import static java.util.Map.of;
 
-@RestController()
+@RestController
 @RequestMapping("students")
 @AllArgsConstructor
 @CrossOrigin("http://localhost:3000")
