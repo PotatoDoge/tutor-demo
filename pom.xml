@@ -39,8 +39,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>RELEASE</version>
-            <scope>compile</scope>
+            <optional>true</optional>
         </dependency>
 		<dependency>
 			<groupId>jakarta.validation</groupId>
@@ -58,6 +57,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>3.1.5</version>
 				<configuration>
 					<image>
 						<builder>paketobuildpacks/builder-jammy-base:latest</builder>
