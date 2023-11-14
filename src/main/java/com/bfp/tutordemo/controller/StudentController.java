@@ -14,6 +14,7 @@ import static java.util.Map.of;
 @RestController()
 @RequestMapping("students")
 @AllArgsConstructor
+@CrossOrigin("http://localhost:3000")
 public class StudentController {
 
     private final StudentService studentService;
