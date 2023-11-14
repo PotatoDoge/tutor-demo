@@ -3,6 +3,7 @@ package com.bfp.tutordemo.service.impl;
 import com.bfp.tutordemo.entity.Student;
 import com.bfp.tutordemo.entity.dto.StudentDTO;
 import com.bfp.tutordemo.repository.impl.StudentRepository;
+import com.bfp.tutordemo.response.exception.ValueExistsInDatabase;
 import com.bfp.tutordemo.service.BaseEntityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,11 +18,13 @@ public class StudentService implements BaseEntityService<Student,StudentDTO> {
 
     private final StudentRepository studentRepository;
 
-    private final Student s = new Student(1L,"bastian","prado","mail@mail.com");
-
     @Override
     public Student save(StudentDTO studentDTO) {
         Student student = new Student(null,studentDTO.getFirstName(), studentDTO.getLastName(), studentDTO.getEmail());
+        boolean emailExistsInDatabase = studentRepository.existsByEmail(student.getEmail());
+        if(emailExistsInDatabase){
+            throw new ValueExistsInDatabase("Email already registered!");
+        }
         return studentRepository.save(student);
     }
 
