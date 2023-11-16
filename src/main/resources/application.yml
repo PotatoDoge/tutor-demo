@@ -3,6 +3,8 @@ server:
     context-path: /v1
 
 spring:
+  jackson:
+    time: UTC
   jpa:
     hibernate:
       ddl-auto: create-drop
