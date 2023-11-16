@@ -1,12 +1,14 @@
 package com.bfp.tutordemo.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.bfp.tutordemo.entity.linkingTables.SubjectLevelTable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -14,10 +16,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Subject {
 
+    public Subject(Long id, String name, String description){
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String description;
+
+    @OneToMany(mappedBy = "subject")
+    @JsonIgnore
+    private List<SubjectLevelTable> subjectLevelTables;
 
 }
