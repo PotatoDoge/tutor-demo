@@ -78,4 +78,16 @@ public class SubjectController {
                 .build();
     }
 
+    @PostMapping("{subjectId}/levels/{levelId}")
+    public HttpResponse associateSubjectToLevel(@PathVariable("subjectId")Long subjectId, @PathVariable("levelId") Long levelId){
+        return HttpResponse
+                .builder()
+                .timestamp(now().toString())
+                .data(of("subjectLevel",subjectService.associateSubjectToLevel(subjectId,levelId)))
+                .message("Subject and level associated!")
+                .status(HttpStatus.OK)
+                .statusCode(HttpStatus.OK.value())
+                .build();
+    }
+
 }
