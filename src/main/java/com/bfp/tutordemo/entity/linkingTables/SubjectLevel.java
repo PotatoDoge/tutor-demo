@@ -7,14 +7,14 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Table(name = "subject_level")
 @Data
 @AllArgsConstructor
-public class SubjectLevelTable {
+public class SubjectLevel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,4 +30,10 @@ public class SubjectLevelTable {
 
     @OneToMany(mappedBy = "subjectLevel", cascade = CascadeType.ALL)
     private List<Appointment> appointments;
+
+    public SubjectLevel(Long id, Subject subject, Level level){
+        this.id = id;
+        this.subject = subject;
+        this.level = level;
+    }
 }
