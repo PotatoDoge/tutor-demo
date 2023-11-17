@@ -1,6 +1,6 @@
 package com.bfp.tutordemo.entity;
 
-import com.bfp.tutordemo.entity.linkingTables.SubjectLevelTable;
+import com.bfp.tutordemo.entity.linkingTables.SubjectLevel;
 import com.bfp.tutordemo.entity.linkingTables.TutorAppointmentTable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -28,7 +28,7 @@ public class Appointment {
 
     @ManyToOne
     @JoinColumn(name = "subject_level_id")
-    private SubjectLevelTable subjectLevel;
+    private SubjectLevel subjectLevel;
 
     @OneToMany(mappedBy = "appointment")
     private List<TutorAppointmentTable> tutorAppointment;

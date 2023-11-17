@@ -1,12 +1,11 @@
 package com.bfp.tutordemo.entity;
 
-import com.bfp.tutordemo.entity.linkingTables.SubjectLevelTable;
+import com.bfp.tutordemo.entity.linkingTables.SubjectLevel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
@@ -30,6 +29,6 @@ public class Subject {
 
     @OneToMany(mappedBy = "subject")
     @JsonIgnore
-    private List<SubjectLevelTable> subjectLevelTables;
+    private List<SubjectLevel> subjectLevels;
 
 }
