@@ -21,7 +21,5 @@ public class Appointment {
     private Long id;
     private String description;
     private LocalDateTime appointmentDateTime; // this will always be saved in UTC
-    private String timezone;
-
 
 }
