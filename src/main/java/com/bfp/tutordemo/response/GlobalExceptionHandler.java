@@ -1,5 +1,6 @@
 package com.bfp.tutordemo.response;
 
+import com.bfp.tutordemo.response.exception.NotFoundInDatabase;
 import com.bfp.tutordemo.response.exception.ValueExistsInDatabase;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
@@ -44,6 +45,17 @@ public class GlobalExceptionHandler {
                 .timestamp(now().toString())
                 .statusCode(200)
                 .status(HttpStatus.OK)
+                .message(ex.getMessage())
+                .build();
+    }
+
+    @ExceptionHandler(NotFoundInDatabase.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public HttpResponse handleNotFoundInDatabase(NotFoundInDatabase ex) {
+        return HttpResponse.builder()
+                .timestamp(now().toString())
+                .statusCode(404)
+                .status(HttpStatus.NOT_FOUND)
                 .message(ex.getMessage())
                 .build();
     }
