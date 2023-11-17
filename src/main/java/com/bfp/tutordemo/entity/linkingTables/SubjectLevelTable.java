@@ -29,5 +29,5 @@ public class SubjectLevelTable {
     private Level level;
 
     @OneToMany(mappedBy = "subjectLevel", cascade = CascadeType.ALL)
-    private List<Appointment> appointments = new ArrayList<>();
+    private List<Appointment> appointments;
 }
