@@ -1,9 +1,7 @@
 package com.bfp.tutordemo.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.bfp.tutordemo.entity.linkingTables.SubjectLevelTable;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,5 +19,13 @@ public class Appointment {
     private Long id;
     private String description;
     private LocalDateTime appointmentDateTime; // this will always be saved in UTC
+
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    private Student student;
+
+    @ManyToOne
+    @JoinColumn(name = "subject_level_id")
+    private SubjectLevelTable subjectLevel;
 
 }
