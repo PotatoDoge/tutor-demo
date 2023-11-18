@@ -1,6 +1,6 @@
 package com.bfp.tutordemo.entity;
 
-import com.bfp.tutordemo.entity.linkingTables.TutorAppointmentTable;
+import com.bfp.tutordemo.entity.linkingTables.TutorAppointment;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
@@ -16,7 +16,7 @@ import java.util.List;
 public class Tutor extends BaseEntity{
 
     @OneToMany(mappedBy = "tutor")
-    private List<TutorAppointmentTable> tutorAppointment;
+    private List<TutorAppointment> tutorAppointment;
 
     public Tutor(Long id, String firstName, String lastName, String email ){
         this.setId(id);
