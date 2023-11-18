@@ -1,7 +1,8 @@
 package com.bfp.tutordemo.entity;
 
 import com.bfp.tutordemo.entity.linkingTables.SubjectLevel;
-import com.bfp.tutordemo.entity.linkingTables.TutorAppointmentTable;
+import com.bfp.tutordemo.entity.linkingTables.TutorAppointment;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,14 +25,17 @@ public class Appointment {
 
     @ManyToOne
     @JoinColumn(name = "student_id")
+    @JsonIgnore
     private Student student;
 
     @ManyToOne
     @JoinColumn(name = "subject_level_id")
+    @JsonIgnore
     private SubjectLevel subjectLevel;
 
     @OneToMany(mappedBy = "appointment")
-    private List<TutorAppointmentTable> tutorAppointment;
+    @JsonIgnore
+    private List<TutorAppointment> tutorAppointment;
 
     public Appointment(Long id, Student student, SubjectLevel subjectLevelId, String description, LocalDateTime appointmentDateTime) {
         this.id = id;
