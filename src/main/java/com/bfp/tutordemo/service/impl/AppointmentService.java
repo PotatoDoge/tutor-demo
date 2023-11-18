@@ -47,7 +47,13 @@ public class AppointmentService {
         System.out.println("deleted");
     }
 
-    public Level update(Long id, AppointmentDTO levelDTO){
-        return null;
+    public Appointment update(Long id, AppointmentDTO appointmentDTO){
+        Appointment appointment = findById(id).orElse(null);
+        if(appointment == null){
+            throw new NotFoundInDatabase("No Appointment with that ID was found in the database");
+        }
+        appointment.setDescription(appointmentDTO.getDescription());
+        appointment.setAppointmentDateTime(appointmentDTO.getAppointmentDateTime());
+        return appointmentRepository.save(appointment);
     }
 }
