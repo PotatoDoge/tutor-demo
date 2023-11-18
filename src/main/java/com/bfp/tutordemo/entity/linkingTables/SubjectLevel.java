@@ -6,6 +6,7 @@ import com.bfp.tutordemo.entity.Subject;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,6 +15,7 @@ import java.util.Optional;
 @Table(name = "subject_level")
 @Data
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class SubjectLevel {
 
     @Id
