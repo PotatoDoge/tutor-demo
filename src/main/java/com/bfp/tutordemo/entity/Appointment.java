@@ -33,4 +33,12 @@ public class Appointment {
     @OneToMany(mappedBy = "appointment")
     private List<TutorAppointmentTable> tutorAppointment;
 
+    public Appointment(Long id, Student student, SubjectLevel subjectLevelId, String description, LocalDateTime appointmentDateTime) {
+        this.id = id;
+        this.subjectLevel = subjectLevelId;
+        this.student = student;
+        this.description = description;
+        this.appointmentDateTime = appointmentDateTime;
+
+    }
 }
