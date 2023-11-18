@@ -1,5 +1,6 @@
 package com.bfp.tutordemo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -18,6 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class Student extends BaseEntity{
 
+    @JsonIgnore
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private List<Appointment> appointments = new ArrayList<>();
 
