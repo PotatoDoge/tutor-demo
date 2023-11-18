@@ -3,6 +3,7 @@ package com.bfp.tutordemo.entity.linkingTables;
 import com.bfp.tutordemo.entity.Appointment;
 import com.bfp.tutordemo.entity.Level;
 import com.bfp.tutordemo.entity.Subject;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,6 +31,7 @@ public class SubjectLevel {
     @JoinColumn(name = "level_id")
     private Level level;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "subjectLevel", cascade = CascadeType.ALL)
     private List<Appointment> appointments;
 
