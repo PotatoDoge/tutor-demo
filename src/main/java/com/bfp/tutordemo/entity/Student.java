@@ -3,8 +3,10 @@ package com.bfp.tutordemo.entity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +14,8 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
+@AllArgsConstructor
+@RequiredArgsConstructor
 public class Student extends BaseEntity{
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
