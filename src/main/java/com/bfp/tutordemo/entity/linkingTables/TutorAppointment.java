@@ -1,8 +1,6 @@
 package com.bfp.tutordemo.entity.linkingTables;
 
 import com.bfp.tutordemo.entity.Appointment;
-import com.bfp.tutordemo.entity.Level;
-import com.bfp.tutordemo.entity.Subject;
 import com.bfp.tutordemo.entity.Tutor;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,7 +10,7 @@ import lombok.Data;
 @Table(name = "tutor_appointment")
 @Data
 @AllArgsConstructor
-public class TutorAppointmentTable {
+public class TutorAppointment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
