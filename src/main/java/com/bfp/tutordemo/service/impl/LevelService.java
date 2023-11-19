@@ -1,9 +1,7 @@
 package com.bfp.tutordemo.service.impl;
 
 import com.bfp.tutordemo.entity.Level;
-import com.bfp.tutordemo.entity.Subject;
 import com.bfp.tutordemo.entity.dto.LevelDTO;
-import com.bfp.tutordemo.entity.dto.SubjectDTO;
 import com.bfp.tutordemo.repository.impl.LevelRepository;
 import com.bfp.tutordemo.response.exception.NotFoundInDatabase;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -66,4 +63,7 @@ public class LevelService {
         return updatedLevel;
     }
 
+    public Level findByName(String levelName) {
+        return levelRepository.findByName(levelName);
+    }
 }
