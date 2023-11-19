@@ -38,7 +38,7 @@ public class SubjectService {
             log.info("Subject with ID:{} was not found",id);
             throw new NotFoundInDatabase("Subject with the given ID was not found in database");
         }
-        log.info("Tutor with ID:{} was found",id);
+        log.info("Subject with ID:{} was found",id);
         return foundSubject;
     }
 
