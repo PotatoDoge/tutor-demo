@@ -11,4 +11,6 @@ public interface SubjectLevelRepository extends JpaRepository<SubjectLevel,Long>
 
     public boolean existsBySubjectAndLevel(Subject subject, Level level);
 
+    SubjectLevel findBySubjectAndLevel(Subject subject, Level level);
+
 }
