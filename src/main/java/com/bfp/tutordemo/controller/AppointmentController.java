@@ -20,11 +20,11 @@ public class AppointmentController {
     private final AppointmentService appointmentService;
 
     @GetMapping
-    public HttpResponse getAppointments(){
+    public HttpResponse getAppointments(@RequestParam(name = "subject", required = false)String subject, @RequestParam(name = "level", required = false) String level){
         return HttpResponse
                 .builder()
                 .timestamp(now().toString())
-                .data(of("appointments",appointmentService.findAll()))
+                .data(of("appointments",appointmentService.findAll(subject,level)))
                 .message("Appointments retrieved!")
                 .status(HttpStatus.OK)
                 .statusCode(HttpStatus.OK.value())
