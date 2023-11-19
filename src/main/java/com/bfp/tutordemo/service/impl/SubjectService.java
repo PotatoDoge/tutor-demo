@@ -73,7 +73,7 @@ public class SubjectService {
 
     public SubjectLevel associateSubjectToLevel(Long subjectId, Long levelId){
         Subject subject = findById(subjectId);
-        Level level = levelService.findById(levelId).orElse(null);
+        Level level = levelService.findById(levelId);
         return subjectLevelService.associateSubjectToLevel(subject,level);
     }
 
