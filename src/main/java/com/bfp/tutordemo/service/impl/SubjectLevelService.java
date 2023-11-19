@@ -17,8 +17,14 @@ import java.util.Optional;
 public class SubjectLevelService {
 
     private final SubjectLevelRepository subjectLevelRepository;
+    private final SubjectService subjectService;
+    private final LevelService levelService;
 
-    public SubjectLevel associateSubjectToLevel(Subject subject, Level level){
+
+    public SubjectLevel associateSubjectToLevel(Long subjectId, Long levelId){
+
+        Subject subject = subjectService.findById(subjectId);
+        Level level = levelService.findById(levelId);
 
         boolean combinationExists = subjectLevelRepository.existsBySubjectAndLevel(
                 subject, level);
@@ -35,6 +41,12 @@ public class SubjectLevelService {
     }
     public Optional<SubjectLevel> findById(Long id){
         return subjectLevelRepository.findById(id);
+    }
+
+    public SubjectLevel findBySubjectAndLevel(String subjectName, String levelName){
+        Subject subject = subjectService.findByName(subjectName);
+        Level level = levelService.findByName(levelName);
+        return subjectLevelRepository.findBySubjectAndLevel(subject,level);
     }
 
 }
