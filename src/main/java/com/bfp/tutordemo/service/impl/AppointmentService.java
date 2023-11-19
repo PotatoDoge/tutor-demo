@@ -1,8 +1,8 @@
 package com.bfp.tutordemo.service.impl;
 
 import com.bfp.tutordemo.entity.Appointment;
-import com.bfp.tutordemo.entity.Level;
 import com.bfp.tutordemo.entity.Student;
+import com.bfp.tutordemo.entity.Subject;
 import com.bfp.tutordemo.entity.dto.AppointmentDTO;
 import com.bfp.tutordemo.entity.linkingTables.SubjectLevel;
 import com.bfp.tutordemo.repository.impl.AppointmentRepository;
@@ -22,7 +22,7 @@ public class AppointmentService {
     private final StudentService studentService;
 
     public Appointment save(Long studentId,Long subjectLevelId, AppointmentDTO appointmentDTO){
-        Student student = studentService.findById(studentId).orElse(null);
+        Student student = studentService.findById(studentId);
         SubjectLevel subjectLevel = subjectLevelService.findById(subjectLevelId).orElse(null);
         if(student == null || subjectLevel == null){
             throw new NotFoundInDatabase("Either student or subjectLevel were not found in database");
@@ -30,7 +30,6 @@ public class AppointmentService {
 
         Appointment appointment = new Appointment(null, student, subjectLevel, appointmentDTO.getDescription(), appointmentDTO.getAppointmentDateTime());
         appointment = appointmentRepository.save(appointment);
-        //return new Appointment();
         return appointment;
     }
 
@@ -38,8 +37,14 @@ public class AppointmentService {
         return appointmentRepository.findById(id);
     }
 
-    public List<Appointment> findAll(){
-        return appointmentRepository.findAll();
+    public List<Appointment> findAll(String subject, String level){
+        if(subject == null || level == null){
+            return appointmentRepository.findAll();
+        }
+
+        SubjectLevel subjectLevel = subjectLevelService.findBySubjectAndLevel(subject,level);
+        return appointmentRepository.findBySubjectLevel(subjectLevel);
+
     }
 
     public void delete(Long id){
