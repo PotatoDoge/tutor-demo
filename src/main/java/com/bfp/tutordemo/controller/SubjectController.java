@@ -2,6 +2,7 @@ package com.bfp.tutordemo.controller;
 
 import com.bfp.tutordemo.entity.dto.SubjectDTO;
 import com.bfp.tutordemo.response.HttpResponse;
+import com.bfp.tutordemo.service.impl.SubjectLevelService;
 import com.bfp.tutordemo.service.impl.SubjectService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -18,6 +19,7 @@ import static java.util.Map.of;
 public class SubjectController {
 
     private final SubjectService subjectService;
+    private final SubjectLevelService subjectLevelService;
 
     @GetMapping
     public HttpResponse getSubjects(){
@@ -83,7 +85,7 @@ public class SubjectController {
         return HttpResponse
                 .builder()
                 .timestamp(now().toString())
-                .data(of("subjectLevel",subjectService.associateSubjectToLevel(subjectId,levelId)))
+                .data(of("subjectLevel",subjectLevelService.associateSubjectToLevel(subjectId,levelId)))
                 .message("Subject and level associated!")
                 .status(HttpStatus.OK)
                 .statusCode(HttpStatus.OK.value())
