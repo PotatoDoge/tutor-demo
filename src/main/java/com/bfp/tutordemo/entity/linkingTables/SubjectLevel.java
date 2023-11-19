@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Entity
-@Table(name = "subject_level")
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"subject_id", "level_id"}))
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
