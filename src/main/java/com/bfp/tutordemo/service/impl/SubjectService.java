@@ -22,8 +22,6 @@ import java.util.Optional;
 public class SubjectService {
 
     private final SubjectRepository subjectRepository;
-    private final SubjectLevelService subjectLevelService;
-    private final LevelService levelService;
 
     public Subject save(SubjectDTO subjectDTO) {
         Subject subject = new Subject(null, subjectDTO.getName(), subjectDTO.getDescription());
@@ -71,10 +69,8 @@ public class SubjectService {
         return updatedSubject;
     }
 
-    public SubjectLevel associateSubjectToLevel(Long subjectId, Long levelId){
-        Subject subject = findById(subjectId);
-        Level level = levelService.findById(levelId);
-        return subjectLevelService.associateSubjectToLevel(subject,level);
+    public Subject findByName(String subjectName){
+        return subjectRepository.findByName(subjectName);
     }
 
 }
