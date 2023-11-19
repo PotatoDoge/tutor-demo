@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static com.bfp.tutordemo.util.AppointmentConstants.FREE_APPOINTMENT;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -22,6 +24,7 @@ public class Appointment {
     private Long id;
     private String description;
     private LocalDateTime appointmentDateTime; // this will always be saved in UTC
+    private String status; // accepted or free
 
     @ManyToOne
     @JoinColumn(name = "student_id")
@@ -43,6 +46,6 @@ public class Appointment {
         this.student = student;
         this.description = description;
         this.appointmentDateTime = appointmentDateTime;
-
+        this.status = FREE_APPOINTMENT;
     }
 }
