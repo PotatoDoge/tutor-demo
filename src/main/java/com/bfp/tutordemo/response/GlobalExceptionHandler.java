@@ -2,6 +2,7 @@ package com.bfp.tutordemo.response;
 
 import com.bfp.tutordemo.response.exception.NotFoundInDatabase;
 import com.bfp.tutordemo.response.exception.ValueExistsInDatabase;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -57,6 +58,27 @@ public class GlobalExceptionHandler {
                 .statusCode(404)
                 .status(HttpStatus.NOT_FOUND)
                 .message(ex.getMessage())
+                .build();
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public HttpResponse handleDataIntegrityViolation(DataIntegrityViolationException ex) {
+        if (ex.getCause() != null) {
+            // Handle SQLIntegrityConstraintViolationException here
+            return HttpResponse.builder()
+                    .timestamp(now().toString())
+                    .statusCode(400)
+                    .status(HttpStatus.BAD_REQUEST)
+                    .message("Duplicate entry or constraint violation occurred.")
+                    .build();
+        }
+
+        // Handle other DataIntegrityViolationExceptions if needed
+        return HttpResponse.builder()
+                .timestamp(now().toString())
+                .statusCode(500)
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .message("Data integrity violation occurred.")
                 .build();
     }
 
