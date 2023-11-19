@@ -8,7 +8,7 @@ public interface BaseEntityService <T extends BaseEntity, D> {
 
     T save(D entity);
 
-    Optional<T> findById(Long id);
+    T findById(Long id);
 
     Iterable<T> findAll();
 
