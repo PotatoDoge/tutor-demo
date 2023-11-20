@@ -2,7 +2,6 @@ package com.bfp.tutordemo.service.impl;
 
 import com.bfp.tutordemo.entity.Appointment;
 import com.bfp.tutordemo.entity.Student;
-import com.bfp.tutordemo.entity.Subject;
 import com.bfp.tutordemo.entity.dto.AppointmentDTO;
 import com.bfp.tutordemo.entity.linkingTables.SubjectLevel;
 import com.bfp.tutordemo.repository.impl.AppointmentRepository;
@@ -12,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
+import static com.bfp.tutordemo.util.AppointmentConstants.FREE_APPOINTMENT;
 
 @Service
 @RequiredArgsConstructor
@@ -43,7 +44,7 @@ public class AppointmentService {
         }
 
         SubjectLevel subjectLevel = subjectLevelService.findBySubjectAndLevel(subject,level);
-        return appointmentRepository.findBySubjectLevel(subjectLevel);
+        return appointmentRepository.findBySubjectLevelAndStatus(subjectLevel, FREE_APPOINTMENT);
 
     }
 

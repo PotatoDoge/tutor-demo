@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
     List<Appointment> findBySubjectLevel(SubjectLevel subjectLevel);
+
+    List<Appointment> findBySubjectLevelAndStatus(SubjectLevel subjectLevel, String freeAppointment);
 }
