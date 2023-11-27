@@ -1,12 +1,14 @@
 package com.bfp.tutordemo.service.impl;
 
 import com.bfp.tutordemo.entity.Appointment;
+import com.bfp.tutordemo.entity.Level;
 import com.bfp.tutordemo.entity.Student;
 import com.bfp.tutordemo.entity.dto.AppointmentDTO;
 import com.bfp.tutordemo.entity.linkingTables.SubjectLevel;
 import com.bfp.tutordemo.repository.impl.AppointmentRepository;
 import com.bfp.tutordemo.response.exception.NotFoundInDatabase;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +18,7 @@ import static com.bfp.tutordemo.util.AppointmentConstants.FREE_APPOINTMENT;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AppointmentService {
 
     private final AppointmentRepository appointmentRepository;
@@ -34,8 +37,14 @@ public class AppointmentService {
         return appointment;
     }
 
-    public Optional<Appointment> findById(Long id){
-        return appointmentRepository.findById(id);
+    public Appointment findById(Long id){
+        Appointment foundAppointment = appointmentRepository.findById(id).orElse(null);
+        if(foundAppointment == null){
+            log.info("Appointment with ID:{} was not found",id);
+            throw new NotFoundInDatabase("Appointment with the given ID was not found in database");
+        }
+        log.info("Appointment with ID:{} was found",id);
+        return foundAppointment;
     }
 
     public List<Appointment> findAll(String subject, String level){
@@ -54,20 +63,14 @@ public class AppointmentService {
     }
 
     public Appointment update(Long id, AppointmentDTO appointmentDTO){
-        Appointment appointment = findById(id).orElse(null);
-        if(appointment == null){
-            throw new NotFoundInDatabase("No Appointment with that ID was found in the database");
-        }
+        Appointment appointment = findById(id);
         appointment.setDescription(appointmentDTO.getDescription());
         appointment.setAppointmentDateTime(appointmentDTO.getAppointmentDateTime());
         return appointmentRepository.save(appointment);
     }
 
     public void changeStatus(Long id, String takenAppointment) {
-        Appointment appointment = findById(id).orElse(null);
-        if(appointment == null){
-            throw new NotFoundInDatabase("No Appointment with that ID was found in the database");
-        }
+        Appointment appointment = findById(id);
         appointment.setStatus(takenAppointment);
         appointmentRepository.save(appointment);
     }

@@ -20,8 +20,8 @@ public class TutorAppointmentService {
     private final TutorAppointmentRepository tutorAppointmentRepository;
 
     public TutorAppointment acceptAppointment(Long appointmentId, Long tutorId){
-        Appointment appointment = appointmentService.findById(appointmentId).orElse(null);
-        if (appointment != null && !appointment.getStatus().equals(FREE_APPOINTMENT)) {
+        Appointment appointment = appointmentService.findById(appointmentId);
+        if (!appointment.getStatus().equals(FREE_APPOINTMENT)) {
             throw new ValueExistsInDatabase("The appointment is already taken!");
         }
         Tutor tutor = tutorService.findById(tutorId);
