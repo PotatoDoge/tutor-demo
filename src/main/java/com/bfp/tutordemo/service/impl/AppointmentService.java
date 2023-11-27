@@ -62,4 +62,13 @@ public class AppointmentService {
         appointment.setAppointmentDateTime(appointmentDTO.getAppointmentDateTime());
         return appointmentRepository.save(appointment);
     }
+
+    public void changeStatus(Long id, String takenAppointment) {
+        Appointment appointment = findById(id).orElse(null);
+        if(appointment == null){
+            throw new NotFoundInDatabase("No Appointment with that ID was found in the database");
+        }
+        appointment.setStatus(takenAppointment);
+        appointmentRepository.save(appointment);
+    }
 }
