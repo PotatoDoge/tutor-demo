@@ -2,14 +2,17 @@ package com.bfp.tutordemo.entity.linkingTables;
 
 import com.bfp.tutordemo.entity.Appointment;
 import com.bfp.tutordemo.entity.Tutor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "tutor_appointment")
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class TutorAppointment {
 
     @Id

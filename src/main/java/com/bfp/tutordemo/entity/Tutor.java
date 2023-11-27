@@ -1,6 +1,7 @@
 package com.bfp.tutordemo.entity;
 
 import com.bfp.tutordemo.entity.linkingTables.TutorAppointment;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
@@ -16,6 +17,7 @@ import java.util.List;
 public class Tutor extends BaseEntity{
 
     @OneToMany(mappedBy = "tutor")
+    @JsonIgnore
     private List<TutorAppointment> tutorAppointment;
 
     public Tutor(Long id, String firstName, String lastName, String email ){
