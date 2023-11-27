@@ -3,6 +3,7 @@ package com.bfp.tutordemo.controller;
 import com.bfp.tutordemo.entity.dto.AppointmentDTO;
 import com.bfp.tutordemo.response.HttpResponse;
 import com.bfp.tutordemo.service.impl.AppointmentService;
+import com.bfp.tutordemo.service.impl.TutorAppointmentService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import static java.util.Map.of;
 public class AppointmentController {
 
     private final AppointmentService appointmentService;
+    private final TutorAppointmentService tutorAppointmentService;
 
     @GetMapping
     public HttpResponse getAppointments(@RequestParam(name = "subject", required = false)String subject, @RequestParam(name = "level", required = false) String level){
@@ -75,6 +77,18 @@ public class AppointmentController {
                 .message("Appointment deleted!")
                 .status(HttpStatus.NO_CONTENT)
                 .statusCode(HttpStatus.NO_CONTENT.value())
+                .build();
+    }
+
+    @PostMapping("{appointmentId}/accept/tutor/{tutorId}")
+    public HttpResponse acceptAppointment(@PathVariable("appointmentId") Long appointmentId, @PathVariable("tutorId")Long tutorId){
+        return HttpResponse
+                .builder()
+                .timestamp(now().toString())
+                .data(of("tutorAppointment",tutorAppointmentService.acceptAppointment(appointmentId,tutorId)))
+                .message("Appointment accepted by a tutor!")
+                .status(HttpStatus.CREATED)
+                .statusCode(HttpStatus.CREATED.value())
                 .build();
     }
 
