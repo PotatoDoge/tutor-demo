@@ -92,4 +92,16 @@ public class SubjectController {
                 .build();
     }
 
+    @GetMapping("level")
+    public HttpResponse getSubjectLevelValues(){
+        return HttpResponse
+                .builder()
+                .timestamp(now().toString())
+                .data(of("subjectLevels",subjectLevelService.findAllSubjectLevelPairs()))
+                .message("SubjectLevels retrieved!")
+                .status(HttpStatus.OK)
+                .statusCode(HttpStatus.OK.value())
+                .build();
+    }
+
 }

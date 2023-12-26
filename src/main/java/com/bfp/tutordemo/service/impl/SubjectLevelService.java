@@ -2,6 +2,8 @@ package com.bfp.tutordemo.service.impl;
 
 import com.bfp.tutordemo.entity.Level;
 import com.bfp.tutordemo.entity.Subject;
+import com.bfp.tutordemo.entity.dto.SubjectDTO;
+import com.bfp.tutordemo.entity.dto.SubjectLevelDTO;
 import com.bfp.tutordemo.entity.linkingTables.SubjectLevel;
 import com.bfp.tutordemo.repository.impl.SubjectLevelRepository;
 import com.bfp.tutordemo.response.exception.NotFoundInDatabase;
@@ -10,6 +12,7 @@ import com.bfp.tutordemo.response.exception.ValueExistsInDatabase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -47,6 +50,10 @@ public class SubjectLevelService {
         Subject subject = subjectService.findByName(subjectName);
         Level level = levelService.findByName(levelName);
         return subjectLevelRepository.findBySubjectAndLevel(subject,level);
+    }
+
+    public List<SubjectLevelDTO> findAllSubjectLevelPairs(){
+        return subjectLevelRepository.findAllSubjectLevelPairs();
     }
 
 }
