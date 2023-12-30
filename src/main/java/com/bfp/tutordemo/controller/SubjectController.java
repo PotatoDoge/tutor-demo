@@ -7,6 +7,7 @@ import com.bfp.tutordemo.service.impl.SubjectService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import static java.time.LocalTime.now;
@@ -15,93 +16,82 @@ import static java.util.Map.of;
 @RestController
 @RequestMapping("subjects")
 @AllArgsConstructor
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin("http://localhost:4200")
 public class SubjectController {
 
     private final SubjectService subjectService;
     private final SubjectLevelService subjectLevelService;
 
     @GetMapping
-    public HttpResponse getSubjects(){
-        return HttpResponse
+    public ResponseEntity<HttpResponse> getSubjects(){
+        return ResponseEntity.ok(HttpResponse
                 .builder()
                 .timestamp(now().toString())
                 .data(of("subjects",subjectService.findAll()))
                 .message("Subjects retrieved!")
-                .status(HttpStatus.OK)
-                .statusCode(HttpStatus.OK.value())
-                .build();
+                .build());
     }
+
     @GetMapping("{id}")
-    public HttpResponse getSubjectById(@PathVariable("id") Long id){
-        return HttpResponse
+    public ResponseEntity<HttpResponse> getSubjectById(@PathVariable("id") Long id){
+        return ResponseEntity.ok(HttpResponse
                 .builder()
                 .timestamp(now().toString())
                 .data(of("subject",subjectService.findById(id)))
                 .message("Subject retrieved!")
-                .status(HttpStatus.OK)
-                .statusCode(HttpStatus.OK.value())
-                .build();
+                .build());
     }
 
     @PostMapping
-    public HttpResponse createSubject(@Valid @RequestBody SubjectDTO subject){
-        return HttpResponse
+    public ResponseEntity<HttpResponse> createSubject(@Valid @RequestBody SubjectDTO subject){
+        return ResponseEntity.status(HttpStatus.CREATED).body(HttpResponse
                 .builder()
                 .timestamp(now().toString())
                 .data(of("subject",subjectService.save(subject)))
                 .message("Subject created!")
                 .status(HttpStatus.CREATED)
                 .statusCode(HttpStatus.CREATED.value())
-                .build();
+                .build());
     }
 
     @PutMapping("{id}")
-    public HttpResponse updateSubject(@PathVariable("id")Long id, @Valid @RequestBody SubjectDTO subject){
-        return HttpResponse
+    public ResponseEntity<HttpResponse> updateSubject(@PathVariable("id")Long id, @Valid @RequestBody SubjectDTO subject){
+        return ResponseEntity.ok(HttpResponse
                 .builder()
                 .timestamp(now().toString())
                 .data(of("subject",subjectService.update(id,subject)))
                 .message("Subject updated!")
-                .status(HttpStatus.OK)
-                .statusCode(HttpStatus.OK.value())
-                .build();
+                .build());
     }
 
     @DeleteMapping("{id}")
-    public HttpResponse deleteSubjectById(@PathVariable("id")Long id){
+    public ResponseEntity<HttpResponse> deleteSubjectById(@PathVariable("id")Long id){
         subjectService.delete(id);
-        return HttpResponse
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(HttpResponse
                 .builder()
                 .timestamp(now().toString())
                 .message("Subject deleted!")
-                .status(HttpStatus.NO_CONTENT)
-                .statusCode(HttpStatus.NO_CONTENT.value())
-                .build();
+                .build());
     }
 
     @PostMapping("{subjectId}/levels/{levelId}")
-    public HttpResponse associateSubjectToLevel(@PathVariable("subjectId")Long subjectId, @PathVariable("levelId") Long levelId){
-        return HttpResponse
+    public ResponseEntity<HttpResponse> associateSubjectToLevel(@PathVariable("subjectId")Long subjectId, @PathVariable("levelId") Long levelId){
+        return ResponseEntity.ok(HttpResponse
                 .builder()
                 .timestamp(now().toString())
                 .data(of("subjectLevel",subjectLevelService.associateSubjectToLevel(subjectId,levelId)))
                 .message("Subject and level associated!")
-                .status(HttpStatus.OK)
-                .statusCode(HttpStatus.OK.value())
-                .build();
+                .build());
     }
 
     @GetMapping("level")
-    public HttpResponse getSubjectLevelValues(){
-        return HttpResponse
+    public ResponseEntity<HttpResponse> getSubjectLevelValues(){
+        return ResponseEntity.ok(HttpResponse
                 .builder()
                 .timestamp(now().toString())
                 .data(of("subjectLevels",subjectLevelService.findAllSubjectLevelPairs()))
                 .message("SubjectLevels retrieved!")
-                .status(HttpStatus.OK)
-                .statusCode(HttpStatus.OK.value())
-                .build();
+                .build());
     }
 
 }
