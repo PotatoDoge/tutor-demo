@@ -49,8 +49,6 @@ public class SubjectController {
                 .timestamp(now().toString())
                 .data(of("subject",subjectService.save(subject)))
                 .message("Subject created!")
-                .status(HttpStatus.CREATED)
-                .statusCode(HttpStatus.CREATED.value())
                 .build());
     }
 

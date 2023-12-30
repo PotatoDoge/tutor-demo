@@ -7,6 +7,7 @@ import com.bfp.tutordemo.service.impl.TutorService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import static java.time.LocalTime.now;
@@ -21,62 +22,51 @@ public class TutorController {
     private final TutorService tutorService;
 
     @GetMapping
-    public HttpResponse getTutors(){
-        return HttpResponse
+    public ResponseEntity<HttpResponse> getTutors(){
+        return ResponseEntity.ok(HttpResponse
                 .builder()
                 .timestamp(now().toString())
                 .data(of("tutors",tutorService.findAll()))
                 .message("Tutors retrieved!")
-                .status(HttpStatus.OK)
-                .statusCode(HttpStatus.OK.value())
-                .build();
+                .build());
     }
     @GetMapping("{id}")
-    public HttpResponse getTutorById(@PathVariable("id") Long id){
-        return HttpResponse
+    public ResponseEntity<HttpResponse> getTutorById(@PathVariable("id") Long id){
+        return ResponseEntity.ok(HttpResponse
                 .builder()
                 .timestamp(now().toString())
                 .data(of("tutor",tutorService.findById(id)))
                 .message("Tutor retrieved!")
-                .status(HttpStatus.OK)
-                .statusCode(HttpStatus.OK.value())
-                .build();
+                .build());
     }
 
     @PostMapping
-    public HttpResponse createTutor(@Valid @RequestBody TutorDTO tutorDTO){
-        return HttpResponse
+    public ResponseEntity<HttpResponse> createTutor(@Valid @RequestBody TutorDTO tutorDTO){
+        return ResponseEntity.status(HttpStatus.CREATED).body(HttpResponse
                 .builder()
                 .timestamp(now().toString())
                 .data(of("tutor",tutorService.save(tutorDTO)))
                 .message("Tutor created!")
-                .status(HttpStatus.CREATED)
-                .statusCode(HttpStatus.CREATED.value())
-                .build();
+                .build());
     }
 
     @PutMapping("{id}")
-    public HttpResponse updateTutor(@PathVariable("id")Long id, @Valid @RequestBody TutorDTO tutorDTO){
-        return HttpResponse
+    public ResponseEntity<HttpResponse> updateTutor(@PathVariable("id")Long id, @Valid @RequestBody TutorDTO tutorDTO){
+        return ResponseEntity.ok(HttpResponse
                 .builder()
                 .timestamp(now().toString())
                 .data(of("tutor",tutorService.update(id,tutorDTO)))
                 .message("Tutor updated!")
-                .status(HttpStatus.OK)
-                .statusCode(HttpStatus.OK.value())
-                .build();
+                .build());
     }
 
     @DeleteMapping("{id}")
-    public HttpResponse deleteTutorById(@PathVariable("id")Long id){
+    public ResponseEntity<HttpResponse> deleteTutorById(@PathVariable("id")Long id){
         tutorService.delete(id);
-        return HttpResponse
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(HttpResponse
                 .builder()
                 .timestamp(now().toString())
                 .message("Tutors deleted!")
-                .status(HttpStatus.NO_CONTENT)
-                .statusCode(HttpStatus.NO_CONTENT.value())
-                .build();
+                .build());
     }
-
 }
