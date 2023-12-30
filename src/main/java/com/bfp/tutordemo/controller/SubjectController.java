@@ -74,7 +74,7 @@ public class SubjectController {
 
     @PostMapping("{subjectId}/levels/{levelId}")
     public ResponseEntity<HttpResponse> associateSubjectToLevel(@PathVariable("subjectId")Long subjectId, @PathVariable("levelId") Long levelId){
-        return ResponseEntity.ok(HttpResponse
+        return ResponseEntity.status(HttpStatus.CREATED).body(HttpResponse
                 .builder()
                 .timestamp(now().toString())
                 .data(of("subjectLevel",subjectLevelService.associateSubjectToLevel(subjectId,levelId)))
