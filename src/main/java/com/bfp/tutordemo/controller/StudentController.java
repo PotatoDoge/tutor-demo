@@ -6,6 +6,7 @@ import com.bfp.tutordemo.service.impl.StudentService;
 import jakarta.validation.*;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import static java.time.LocalTime.now;
@@ -20,61 +21,52 @@ public class StudentController {
     private final StudentService studentService;
 
     @GetMapping
-    public HttpResponse getStudents(){
-        return HttpResponse
+    public ResponseEntity<HttpResponse> getStudents(){
+        return ResponseEntity.ok(HttpResponse
                 .builder()
                 .timestamp(now().toString())
                 .data(of("students",studentService.findAll()))
                 .message("Students retrieved!")
-                .status(HttpStatus.OK)
-                .statusCode(HttpStatus.OK.value())
-                .build();
+                .build());
+
     }
     @GetMapping("{id}")
-    public HttpResponse getStudentById(@PathVariable("id") Long id){
-        return HttpResponse
+    public ResponseEntity<HttpResponse> getStudentById(@PathVariable("id") Long id){
+        return ResponseEntity.ok(HttpResponse
                 .builder()
                 .timestamp(now().toString())
                 .data(of("student",studentService.findById(id)))
                 .message("Student retrieved!")
-                .status(HttpStatus.OK)
-                .statusCode(HttpStatus.OK.value())
-                .build();
+                .build());
     }
 
     @PostMapping
-    public HttpResponse createStudent(@Valid @RequestBody StudentDTO student){
-        return HttpResponse
+    public ResponseEntity<HttpResponse> createStudent(@Valid @RequestBody StudentDTO student){
+        return ResponseEntity.status(HttpStatus.CREATED).body(HttpResponse
                 .builder()
                 .timestamp(now().toString())
                 .data(of("student",studentService.save(student)))
                 .message("Student created!")
-                .status(HttpStatus.CREATED)
-                .statusCode(HttpStatus.CREATED.value())
-                .build();
+                .build());
     }
 
     @PutMapping("{id}")
-    public HttpResponse updateStudent(@PathVariable("id")Long id, @Valid @RequestBody StudentDTO studentDTO){
-        return HttpResponse
+    public ResponseEntity<HttpResponse> updateStudent(@PathVariable("id")Long id, @Valid @RequestBody StudentDTO studentDTO){
+        return ResponseEntity.ok(HttpResponse
                 .builder()
                 .timestamp(now().toString())
                 .data(of("student",studentService.update(id,studentDTO)))
                 .message("Student updated!")
-                .status(HttpStatus.OK)
-                .statusCode(HttpStatus.OK.value())
-                .build();
+                .build());
     }
 
     @DeleteMapping("{id}")
-    public HttpResponse deleteStudentById(@PathVariable("id")Long id){
+    public ResponseEntity<HttpResponse> deleteStudentById(@PathVariable("id")Long id){
         studentService.delete(id);
-        return HttpResponse
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(HttpResponse
                 .builder()
                 .timestamp(now().toString())
                 .message("Student deleted!")
-                .status(HttpStatus.NO_CONTENT)
-                .statusCode(HttpStatus.NO_CONTENT.value())
-                .build();
+                .build());
     }
 }
